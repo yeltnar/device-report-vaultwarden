@@ -1,18 +1,42 @@
+
+pub_ip=$(curl https://digitalocean.andbrant.com);
+lan_ip=$(ifconfig | awk '/192/{print $2}');
+nebula_ip=$(ifconfig | awk '/10\.10\.10/{print $2}');
+
+echo $pub_ip 
+echo $lan_ip
+echo $nebula_ip
+
+new_content="{ \
+    \"pub_ip\":\"$pub_ip\", \
+    \"lan_ip\":\"$lan_ip\", \
+    \"nebula_ip\":\"$nebula_ip\" \
+}"
+
+echo $new_content | jq
+
+# exit 
+
 bw logout
 
-export BW_SESSION="$(bw login work-mac@andbrant.com --passwordfile ~/tmp/vaultwarden-playin/passwordfile --raw)"
+note_name="$(cat gitignore/note_name)";
+email="$(cat gitignore/email)"
+passwordfile="gitignore/passwordfile"
+organizationid="$(cat gitignore/organizationid)"
 
-json=$(bw get item test --organizationid 096ae60e-71c4-4497-a0c1-d399e6d4d696) 
+export BW_SESSION="$(bw login $email --passwordfile $passwordfile --raw)"
 
-echo $json
+json=$(bw get item $note_name --organizationid $organizationid) 
+
+echo $json | jq
 
 item_id=$(echo $json | jq .id -r)
-echo $item_id
+revisionDate=$(echo $json | jq .revisionDate -r)
+echo $revisionDate
 
-new_content="new_content"
 
-json=$(echo $json | jq --arg new_content $new_content '.notes =  $new_content')
+json=$(echo $json | jq --arg new_content "$new_content" '.notes =  $new_content')
 
 echo $json | base64 
-echo $json | base64 | bw edit item $item_id --organizationid 096ae60e-71c4-4497-a0c1-d399e6d4d696  
+echo $json | base64 | bw edit item $item_id --organizationid $organizationid
 

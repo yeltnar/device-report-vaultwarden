@@ -1,7 +1,12 @@
+#!/bin/bash
+
+PATH="/usr/local/bin:/sbin:/usr/bin:/bin"
 
 pub_ip=$(curl https://digitalocean.andbrant.com);
 lan_ip=$(ifconfig | awk '/192/{print $2}');
 nebula_ip=$(ifconfig | awk '/10\.10\.10/{print $2}');
+
+date="$(date)"
 
 echo $pub_ip 
 echo $lan_ip
@@ -10,7 +15,8 @@ echo $nebula_ip
 new_content="{ \
     \"pub_ip\":\"$pub_ip\", \
     \"lan_ip\":\"$lan_ip\", \
-    \"nebula_ip\":\"$nebula_ip\" \
+    \"nebula_ip\":\"$nebula_ip\", \
+    \"date\":\"$date\" \
 }"
 
 echo $new_content | jq

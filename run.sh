@@ -1,7 +1,12 @@
+#!/bin/bash
+
+PATH="/usr/local/bin:/sbin:/usr/bin:/bin"
 
 pub_ip=$(curl https://digitalocean.andbrant.com);
 lan_ip=$(ifconfig | awk '/192/{print $2}');
 nebula_ip=$(ifconfig | awk '/10\.10\.10/{print $2}');
+
+date="$(date)"
 
 echo $pub_ip 
 echo $lan_ip
@@ -10,21 +15,18 @@ echo $nebula_ip
 new_content="{ \
     \"pub_ip\":\"$pub_ip\", \
     \"lan_ip\":\"$lan_ip\", \
-    \"nebula_ip\":\"$nebula_ip\" \
+    \"nebula_ip\":\"$nebula_ip\", \
+    \"date\":\"$date\" \
 }"
 
 echo $new_content | jq
-
-# exit 
-
-bw logout
 
 note_name="$(cat gitignore/note_name)";
 email="$(cat gitignore/email)"
 passwordfile="gitignore/passwordfile"
 organizationid="$(cat gitignore/organizationid)"
 
-export BW_SESSION="$(bw login $email --passwordfile $passwordfile --raw)"
+export BW_SESSION="$(cat ./gitignore/BW_SESSION)"
 
 json=$(bw get item $note_name --organizationid $organizationid) 
 

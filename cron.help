@@ -1,0 +1,1 @@
+*/5 * * * * bash -c 'cd /home/drew/playin/device-report-vaultwarden && ./run.sh'

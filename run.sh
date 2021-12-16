@@ -5,6 +5,7 @@ PATH="/usr/local/bin:/sbin:/usr/bin:/bin"
 pub_ip=$(curl https://digitalocean.andbrant.com);
 lan_ip=$(ifconfig | awk '/192/{print $2}');
 nebula_ip=$(ifconfig | awk '/10\.10\.10/{print $2}');
+git_branch=$(git rev-parse HEAD)
 
 date="$(date)"
 
@@ -16,7 +17,8 @@ new_content="{ \
     \"pub_ip\":\"$pub_ip\", \
     \"lan_ip\":\"$lan_ip\", \
     \"nebula_ip\":\"$nebula_ip\", \
-    \"date\":\"$date\" \
+    \"date\":\"$date\", \
+    \"git_branch\":\"$git_branch\" \
 }"
 
 echo $new_content | jq

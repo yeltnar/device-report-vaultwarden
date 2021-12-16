@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PATH="/usr/local/bin:/sbin:/usr/bin:/bin"
+PATH="/usr/local/bin:/sbin:/usr/bin:/bin:/snap/bin"
 
 pub_ip=$(curl https://digitalocean.andbrant.com);
 lan_ip="$(ifconfig | awk '/192\.168/{print $2}')";

@@ -21,16 +21,12 @@ new_content="{ \
 
 echo $new_content | jq
 
-# exit 
-
-bw logout
-
 note_name="$(cat gitignore/note_name)";
 email="$(cat gitignore/email)"
 passwordfile="gitignore/passwordfile"
 organizationid="$(cat gitignore/organizationid)"
 
-export BW_SESSION="$(bw login $email --passwordfile $passwordfile --raw)"
+export BW_SESSION="$(cat ./gitignore/BW_SESSION)"
 
 json=$(bw get item $note_name --organizationid $organizationid) 
 

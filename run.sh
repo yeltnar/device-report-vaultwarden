@@ -3,7 +3,7 @@
 PATH="/usr/local/bin:/sbin:/usr/bin:/bin"
 
 pub_ip=$(curl https://digitalocean.andbrant.com);
-lan_ip=$(ifconfig | awk '/192/{print $2}');
+lan_ip="$(ifconfig | awk '/192\.168/{print}')";
 nebula_ip=$(ifconfig | awk '/10\.10\.10/{print $2}');
 git_branch=$(git rev-parse HEAD)
 

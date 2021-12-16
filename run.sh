@@ -9,10 +9,6 @@ git_branch=$(git rev-parse HEAD)
 
 date="$(date)"
 
-echo $pub_ip 
-echo $lan_ip
-echo $nebula_ip
-
 new_content="{ \
     \"pub_ip\":\"$pub_ip\", \
     \"lan_ip\":\"$lan_ip\", \
@@ -32,15 +28,13 @@ export BW_SESSION="$(cat ./gitignore/BW_SESSION)"
 
 json=$(bw get item $note_name --organizationid $organizationid) 
 
-echo $json | jq
+#echo $json | jq
 
 item_id=$(echo $json | jq .id -r)
 revisionDate=$(echo $json | jq .revisionDate -r)
-echo $revisionDate
-
 
 json=$(echo $json | jq --arg new_content "$new_content" '.notes =  $new_content')
 
-echo $json | base64 
-echo $json | base64 | bw edit item $item_id --organizationid $organizationid
+echo $json | base64 | bw edit item $item_id --organizationid $organizationid | jq .revisionDate
 
+echo "upload done"

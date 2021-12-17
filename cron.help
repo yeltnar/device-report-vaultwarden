@@ -1,1 +1,3 @@
-*/5 * * * * bash -c 'cd /home/drew/playin/device-report-vaultwarden && ./run.sh'
+# may want to redirect to /dev/null if get mail 
+*/5 * * * * bash -c 'cd /home/pi/playin/device-report-vaultwarden && ./run.sh'
+0 */3 * * * bash -c 'cd /home/pi/playin/device-report-vaultwarden && ./sign_in.sh'

@@ -1,3 +1,7 @@
 export BW_SESSION="$(cat ./gitignore/BW_SESSION)"
-bw sync > /dev/null && 
+
+if [[ "$1" == "--sync" || "$1" == "-s" ]]; then
+	bw sync  
+fi
+
 bw get item 053f1d7f-d7d5-47cf-8ed9-c08ceb5966ed | jq -r .notes | jq .pub_ip -r

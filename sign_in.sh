@@ -2,9 +2,9 @@
 
 PATH="/usr/local/bin:/sbin:/usr/bin:/bin:/snap/bin"
 
-passwordfile="gitignore/passwordfile"
-outfile="./gitignore/BW_SESSION"
-email="$(cat ./gitignore/email)"
+passwordfile="$bashrc_folder/gitignore/passwordfile"
+outfile="$bashrc_folder/gitignore/BW_SESSION"
+email="$(cat $bashrc_folder/gitignore/email)"
 
 bw logout
 bw login $email --passwordfile "$passwordfile" --raw > "$outfile"  

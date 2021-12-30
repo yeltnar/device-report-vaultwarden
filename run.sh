@@ -19,12 +19,12 @@ new_content="{ \
 
 echo $new_content | jq
 
-note_name="$(cat gitignore/note_name)";
-email="$(cat gitignore/email)"
-passwordfile="gitignore/passwordfile"
-organizationid="$(cat gitignore/organizationid)"
+note_name="$(cat $bashrc_folder/gitignore/note_name)";
+email="$(cat $bashrc_folder/gitignore/email)"
+passwordfile="$bashrc_folder/gitignore/passwordfile"
+organizationid="$(cat $bashrc_folder/gitignore/organizationid)"
 
-export BW_SESSION="$(cat ./gitignore/BW_SESSION)"
+export BW_SESSION="$(cat $bashrc_folder/gitignore/BW_SESSION)"
 
 json=$(bw get item $note_name --organizationid $organizationid) 
 
